@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Data</title>
+</head>
+
+<body>
+    <h1>Delete Data</h1>
+    <form id="deleteDataForm">
+        <label for="deleteKey">Delete Key:</label>
+        <input type="text" id="deleteKey" required><br>
+
+        <button type="submit">Delete Data</button>
+    </form>
+
+    <script>
+        const apiUrl = "http://127.0.0.1:5000/api/data";
+
+        document.getElementById("deleteDataForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const deleteKey = document.getElementById("deleteKey").value;
+            fetch(apiUrl + `/${deleteKey}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+
+</html>

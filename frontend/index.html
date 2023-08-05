@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend for Flask API</title>
+</head>
+
+<body>
+    <h1>Welcome to the Frontend</h1>
+    <p>Choose an option:</p>
+    <button onclick="navigateTo('registration')">User Registration</button>
+    <button onclick="navigateTo('generate_token')">Generate Token</button>
+    <button onclick="navigateTo('store_data')">Store Data</button>
+    <button onclick="navigateTo('retrieve_data')">Retrieve Data</button>
+    <button onclick="navigateTo('edit_data')">Edit Data</button>
+    <button onclick="navigateTo('delete_data')">Delete Data</button>
+    <button id="logoutBtn">Logout</button>
+
+    <script>
+        const logoutUrl = "http://127.0.0.1:5000/logout";
+
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            fetch(logoutUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.location.replace("/generate_token");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Logout failed. Please try again.");
+            });
+        });
+    </script>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+
+</html>

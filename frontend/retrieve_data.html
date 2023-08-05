@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrieve Data</title>
+</head>
+
+<body>
+    <h1>Retrieve Data</h1>
+    <form id="retrieveDataForm">
+        <label for="retrieveKey">Retrieve Key:</label>
+        <input type="text" id="retrieveKey" required><br>
+
+        <button type="submit">Retrieve Data</button>
+    </form>
+
+    <script>
+        const apiUrl = "http://127.0.0.1:5000/api/data";
+
+        document.getElementById("retrieveDataForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const retrieveKey = document.getElementById("retrieveKey").value;
+            fetch(apiUrl + `/${retrieveKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    alert(`Value for key ${data.data.key}: ${data.data.value}`);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        });
+    </script>
+</body>
+
+</html>

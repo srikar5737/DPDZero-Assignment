@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <p>Example content...</p>
+    <button id="logoutBtn">Logout</button>
+
+    <script>
+        const logoutUrl = "http://127.0.0.1:5000/logout";
+
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            fetch(logoutUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.location.replace("/login");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Logout failed. Please try again.");
+            });
+        });
+    </script>
+</body>
+
+</html>

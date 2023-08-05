@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Data</title>
+</head>
+
+<body>
+    <h1>Store Data</h1>
+    <form id="storeDataForm">
+        <label for="key">Key:</label>
+        <input type="text" id="key" required><br>
+
+        <label for="value">Value:</label>
+        <input type="text" id="value" required><br>
+
+        <button type="submit">Store Data</button>
+    </form>
+
+    <script>
+        const apiUrl = "http://127.0.0.1:5000/api/data";
+
+        document.getElementById("storeDataForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const formData = {
+                key: document.getElementById("key").value,
+                value: document.getElementById("value").value
+            };
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+
+</html>
